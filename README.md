@@ -1,0 +1,1 @@
+The arduino code for a simple tabletop qubit I developed using LOQC protocols. Full article at https://medium.com/@pranavsrijit08/the-tabletop-qubit-building-a-simple-linear-optical-quantum-computer-part-1-b47e432b2303
