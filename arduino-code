@@ -1,0 +1,40 @@
+const int sensorPin1 = A0;
+const int sensorPin2 = A2;
+const int laserPin = 12;
+
+int lightCal1;
+int lightCal2;
+int stateZero;
+int stateOne;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(laserPin, OUTPUT);
+  digitalWrite(laserPin, HIGH);
+  delay(1000);
+  lightCal1 = analogRead(sensorPin1);
+  lightCal2 = analogRead(sensorPin2);
+  lightCal2 = lightCal2; //calibration for this specific environment (desk on my room, all lights off, screen on and max brightness, ide window open fullscreen)
+  delay(1000);
+  digitalWrite(laserPin, LOW);
+}
+
+void loop()
+{
+  digitalWrite(laserPin, HIGH);
+  delay(10);
+  stateZero = analogRead(sensorPin1);
+  stateOne = analogRead(sensorPin2);
+  digitalWrite(laserPin, LOW);
+
+  if ((stateZero >= lightCal1) and (stateZero > (stateOne + (lightCal1 - lightCal2)))){
+    Serial.println("Zero");
+  }
+
+  else if ((stateOne >= lightCal2) and (stateZero < (stateOne + (lightCal1 - lightCal2)))){
+    Serial.println("One");
+  }
+  
+  delay(100);
+}
